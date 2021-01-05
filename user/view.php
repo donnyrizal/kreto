@@ -1,9 +1,10 @@
 <?php
 session_start();
-include("../koneksi.php");
-if (!isset($_SESSION['admin'])) {
-    echo "<script>window.location='../login.php?pesan=dilarang'</script>";
+if (!isset($_SESSION['user'])) {
+    echo "<script>window.location='../login.php/?pesan=dilarang'</script>";
 } else {
+    $username = $_SESSION['user']['username'];
+    include_once("../koneksi.php");
 ?>
     <!DOCTYPE html>
     <html>
@@ -12,7 +13,7 @@ if (!isset($_SESSION['admin'])) {
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=Edge">
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-        <title>KRETO - Orders View</title>
+        <title>KRETO - View Your Order <?php echo $username; ?></title>
         <!-- Favicon-->
         <link rel="icon" href="../assets/images/train.svg" type="image/x-icon">
 
@@ -73,7 +74,7 @@ if (!isset($_SESSION['admin'])) {
                 <div class="navbar-header">
                     <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
                     <a href="javascript:void(0);" class="bars"></a>
-                    <a class="navbar-brand" href="./">Admin - KRETO</a>
+                    <a class="navbar-brand" href="./">USER - KRETO</a>
                 </div>
                 <div class="collapse navbar-collapse" id="navbar-collapse">
                 </div>
@@ -86,11 +87,13 @@ if (!isset($_SESSION['admin'])) {
                 <!-- User Info -->
                 <div class="user-info">
                     <div class="image">
-                        <img src="../assets/images/programmer.png" width="60" height="60" alt="User" />
+                        <img src="../assets/images/programmer.png" width="48" height="48" alt="User" />
                     </div>
                     <div class="info-container">
                         <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <b style="text-transform: uppercase;"><?php echo $_SESSION['admin']['username']; ?></b>
+                            <b><?php echo $_SESSION['user']['nama']; ?></b>
+                            <br>
+                            <?php echo $_SESSION['user']['username']; ?>
                         </div>
                         <div class="btn-group user-helper-dropdown">
                             <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
@@ -106,24 +109,25 @@ if (!isset($_SESSION['admin'])) {
                 <div class="menu">
                     <ul class="list">
                         <li class="header">MAIN NAVIGATION</li>
-                        <li>
+                        <li class="">
                             <a href="./">
                                 <i class="material-icons">home</i>
                                 <span>Home</span>
                             </a>
                         </li>
                         <li>
-                            <a href="daftar.php">
+                            <a href="./pemesanan.php#pemesanan">
                                 <i class="material-icons">assignment</i>
-                                <span>Orders View</span>
+                                <span>Order</span>
                             </a>
                         </li>
                         <li class="active">
-                            <a href="./user.php">
-                                <i class="material-icons">people</i>
-                                <span>User List</span>
+                            <a href="./view.php">
+                                <i class="material-icons">insert_drive_file</i>
+                                <span>View your Order</span>
                             </a>
                         </li>
+
 
                         <li class="header">ACCOUNT</li>
 
@@ -150,7 +154,6 @@ if (!isset($_SESSION['admin'])) {
 
             <!-- #END# Right Sidebar -->
         </section>
-
         <section class="content">
             <div class="container-fluid">
                 <div class="block-header">
@@ -163,7 +166,7 @@ if (!isset($_SESSION['admin'])) {
                         <div class="card">
                             <div class="header bg-blue">
                                 <h2>
-                                    User List <small>The place for admin only </small>
+                                    LIST YOUR ODERED TICKET IN HERE <small>For a confirmation please have a look at this</small>
                                 </h2>
                             </div>
                             <div class="body">
@@ -172,29 +175,35 @@ if (!isset($_SESSION['admin'])) {
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Name</th>
                                                 <th>Username</th>
-                                                <th>Password</th>
-                                                <th>Level</th>
-                                                <th>Status</th>
+                                                <th>Name</th>
+                                                <th>Origin</th>
+                                                <th>Destination</th>
+                                                <th>Seat Row</th>
+                                                <th>Date Start</th>
+                                                <th>Date End</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
                                             $i = 0;
-                                            $sql = "SELECT * FROM user";
+                                            $namasaya = $_SESSION['user']['username'];
+                                            $sql = "SELECT user.username, nama, origin, destination, seat, datestart, dateend FROM pemesanan INNER JOIN user ON pemesanan.username=user.username where pemesanan.username='$namasaya'";
                                             $query = mysqli_query($koneksi, $sql);
 
-                                            while ($siswa = mysqli_fetch_array($query)) {
+                                            while ($result = mysqli_fetch_array($query)) {
                                                 echo "<tr>";
-
                                                 echo "<td style='text-align: center !important;'>" . ++$i . "</td>";
-                                                echo "<td>" . $siswa['nama'] . "</td>";
-                                                echo "<td>" . $siswa['username'] . "</td>";
-                                                echo "<td>" . $siswa['password'] . "</td>";
-                                                echo "<td>" . $siswa['level'] . "</td>";
-                                                echo "<td>" . $siswa['status'] . "</td>";
-                                            } ?>
+                                                echo "<td>" . $result['username'] . "</td>";
+                                                echo "<td>" . $result['nama'] . "</td>";
+                                                echo "<td>" . $result['origin'] . "</td>";
+                                                echo "<td>" . $result['destination'] . "</td>";
+                                                echo "<td>" . $result['seat'] . "</td>";
+                                                echo "<td>" . $result['datestart'] . "</td>";
+                                                echo "<td>" . $result['dateend'] . "</td>";
+                                                echo "</tr>";
+                                            }
+                                            ?>
                                         </tbody>
                                     </table>
                                 </div>

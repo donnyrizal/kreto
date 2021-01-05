@@ -1,7 +1,21 @@
 <?php
 session_start();
+function greetingWord()
+{
+    $hour = date("G");
+
+    if ($hour > 0 && $hour < 24) {
+        if ($hour >= 3 && $hour < 12) {
+            echo "<p>Good Morning. Have a nice holiday 🤗 </p>";
+        } else if ($hour >= 12 && $hour < 17) {
+            echo "<p>Good afternoon. Have a nice holiday 🤗 </p>";
+        } else {
+            echo "<p>Good evening. Have a nice holiday 🤗 </p>";
+        }
+    }
+}
 if (!isset($_SESSION['user'])) {
-    echo "<script>window.location='../?pesan=dilarang'</script>";
+    echo "<script>window.location='../login.php?pesan=dilarang'</script>";
 } else {
 
 ?>
@@ -12,7 +26,7 @@ if (!isset($_SESSION['user'])) {
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=Edge">
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-        <title>PDHFOSTI - Halaman Pengguna Ticket Order</title>
+        <title>KRETO - Ticket Ordering</title>
         <!-- Favicon-->
         <link rel="icon" href="../assets/images/train.svg" type="image/x-icon">
 
@@ -53,7 +67,7 @@ if (!isset($_SESSION['user'])) {
                         </div>
                     </div>
                 </div>
-                <p>Harap Tunggu...</p>
+                <p>Wait for a moment please...</p>
             </div>
         </div>
         <!-- #END# Page Loader -->
@@ -67,7 +81,7 @@ if (!isset($_SESSION['user'])) {
                 <div class="navbar-header">
                     <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
                     <a href="javascript:void(0);" class="bars"></a>
-                    <a class="navbar-brand" href="./">PENGGUNA - KRETO</a>
+                    <a class="navbar-brand" href="./">USER - KRETO</a>
                 </div>
             </div>
         </nav>
@@ -91,7 +105,7 @@ if (!isset($_SESSION['user'])) {
                             <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
                             <ul class="dropdown-menu pull-right">
                                 <li role="separator" class="divider"></li>
-                                <li><a href="../logout.php"><i class="material-icons">power_settings_new</i>Keluar</a></li>
+                                <li><a href="../logout.php"><i class="material-icons">power_settings_new</i>Logout</a></li>
                             </ul>
                         </div>
                     </div>
@@ -104,13 +118,19 @@ if (!isset($_SESSION['user'])) {
                         <li class="active">
                             <a href="./">
                                 <i class="material-icons">home</i>
-                                <span>Beranda</span>
+                                <span>Home</span>
                             </a>
                         </li>
                         <li>
                             <a href="./pemesanan.php#pemesanan">
                                 <i class="material-icons">assignment</i>
-                                <span>Pemesanan</span>
+                                <span>Order</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="./view.php">
+                                <i class="material-icons">insert_drive_file</i>
+                                <span>View your Order</span>
                             </a>
                         </li>
 
@@ -120,7 +140,7 @@ if (!isset($_SESSION['user'])) {
                         <li>
                             <a href="../logout.php">
                                 <i class="material-icons col-red">power_settings_new</i>
-                                <span>Keluar</span>
+                                <span>Logout</span>
                             </a>
                         </li>
 
@@ -130,7 +150,7 @@ if (!isset($_SESSION['user'])) {
                 <!-- Footer -->
                 <div class="legal">
                     <div class="copyright">
-                        &copy; 2019 <a href="https://fosti.ums.ac.id/;">FOSTI</a>
+                        &copy; 2019 <a href="https://KRETO.ums.ac.id/;">KRETO</a>
                     </div>
                 </div>
                 <!-- #Footer -->
@@ -153,13 +173,13 @@ if (!isset($_SESSION['user'])) {
                         <div class="card">
                             <div class="header bg-blue">
                                 <h2>
-                                    Halaman Pengguna <small>Halaman untuk melakukan Ticket Order...</small>
+                                    User <small>Order your ticket here</small>
                                 </h2>
                             </div>
                             <div class="body">
-                                <p class="align-justify">KRETO digunakan untuk melakukan dan memanage pemesanan Pakaian Dinas Harian ( PDH ) FOSTI Universitas Muhammadiyah Surakarta...</p>
+                                <p class="align-justify"><?php echo greetingWord(); ?> </p>
                                 <p> </p>
-                                <p class="align-justify">Lakukan Pemesanan sesuai dengan kecocokan diri anda mulai dengan nickname & ukuran pdh. untuk ukuran bisa di lihat <a href="pemesanan.php">disini</a></p>
+                                <p class="align-justify"></p>
                             </div>
                         </div>
                     </div>
@@ -170,17 +190,9 @@ if (!isset($_SESSION['user'])) {
                         <div class="card">
                             <div class="header">
                                 <h2>
-                                    v2.1.0
-                                    <small>20 Januari 2019</small>
+                                    Today
+                                    <small><?php echo date("l, d F Y"); ?></small>
                                 </h2>
-                            </div>
-                            <div class="body">
-                                <p><b>Pembaruhan Sistem Ticket Order 2019 </b>:</p>
-                                <p>- Penambahan Sistem Login & Logout</p>
-                                <p>- Penambahan Sistem Edit Pemesanan</p>
-                                <p>- Penambahan Cetak Pemesanan</p>
-                                <p>- Penambahan Sistem Alert PopUp</p>
-                                <p></p>
                             </div>
                         </div>
                     </div>

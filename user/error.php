@@ -49,7 +49,7 @@
                 <div class="text-center h-100">
                     <div class="glitch" data-text="ERROR">ERROR</div>
                     <p class="lead text-gray-800 mb-5">page is not found</p>
-                    <a style="color:inherit;text-decoration:none" href="index.php">&larr; back to dashboard</a>
+                    <a style="color:inherit;text-decoration:none" href="login.php">&larr; back to dashboard</a>
                 </div>
 
             </div>

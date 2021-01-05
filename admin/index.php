@@ -1,8 +1,20 @@
 <?php
 session_start();
 include("../koneksi.php");
+function get_count_from($table)
+{
+    global $koneksi;
+    $sql = "SELECT username from $table";
+    $check = mysqli_query($koneksi, $sql);
+    $count = mysqli_num_rows($check);
+    if ($count == 0) {
+        echo 0;
+    } else {
+        echo $count;
+    }
+}
 if (!isset($_SESSION['admin'])) {
-    echo "<script>window.location='../user/index.php?pesan=dilarang'</script>";
+    echo "<script>window.location='../user/login.php?pesan=dilarang'</script>";
 } else {
 ?>
     <!DOCTYPE html>
@@ -12,7 +24,7 @@ if (!isset($_SESSION['admin'])) {
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=Edge">
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-        <title>PDHFOSTI - Halaman Administrator</title>
+        <title>KRETO - Admin Only</title>
         <!-- Favicon-->
         <link rel="icon" href="../assets/images/train.svg" type="image/x-icon">
 
@@ -59,7 +71,7 @@ if (!isset($_SESSION['admin'])) {
                         </div>
                     </div>
                 </div>
-                <p>Tunggu Sebentar...</p>
+                <p>Wait for a moment....</p>
             </div>
         </div>
         <!-- #END# Page Loader -->
@@ -96,7 +108,7 @@ if (!isset($_SESSION['admin'])) {
                             <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
                             <ul class="dropdown-menu pull-right">
                                 <li role="separator" class="divider"></li>
-                                <li><a href="../logout.php"><i class="material-icons">power_settings_new</i>Keluar</a></li>
+                                <li><a href="../logout.php"><i class="material-icons">power_settings_new</i>Logout</a></li>
                             </ul>
                         </div>
                     </div>
@@ -109,23 +121,28 @@ if (!isset($_SESSION['admin'])) {
                         <li class="active">
                             <a href="./">
                                 <i class="material-icons">home</i>
-                                <span>Beranda</span>
+                                <span>Home</span>
                             </a>
                         </li>
                         <li>
-                            <a href="./daftar.php">
+                            <a href="daftar.php">
                                 <i class="material-icons">assignment</i>
-                                <span>Daftar Pemesanan</span>
+                                <span>Orders View</span>
                             </a>
                         </li>
-
+                        <li>
+                            <a href="./user.php">
+                                <i class="material-icons">people</i>
+                                <span>User List</span>
+                            </a>
+                        </li>
 
                         <li class="header">ACCOUNT</li>
 
                         <li>
                             <a href="../logout.php">
                                 <i class="material-icons col-red">power_settings_new</i>
-                                <span>Keluar</span>
+                                <span>Logout</span>
                             </a>
                         </li>
 
@@ -135,7 +152,7 @@ if (!isset($_SESSION['admin'])) {
                 <!-- Footer -->
                 <div class="legal">
                     <div class="copyright">
-                        &copy; 2019 <a href="https://fosti.ums.ac.id/">FOSTI</a>
+                        <p>&copy; Donny Rizal &middot; <a href="#">Privacy</a> &middot; <a href="#notice">Terms</a></p>
                     </div>
                 </div>
                 <!-- #Footer -->
@@ -158,11 +175,11 @@ if (!isset($_SESSION['admin'])) {
                         <div class="card">
                             <div class="header bg-blue">
                                 <h2>
-                                    Halaman Administrator <small>Halaman untuk melihat daftar yang telah melakukan pengisian data pembelian PDH...</small>
+                                    Admin Only <small>Have you wondered how can i get your personal data muahahaha</small>
                                 </h2>
                             </div>
                             <div class="body">
-                                <p class="align-justify">KRETO digunakan untuk melakukan dan memanage pemesanan Pakaian Dinas Harian ( PDH ) FOSTI Universitas Muhammadiyah Surakarta...</p>
+                                <p class="align-justify">This is what im gonna do 😊 </p>
                             </div>
                         </div>
                     </div>
@@ -173,17 +190,27 @@ if (!isset($_SESSION['admin'])) {
                         <div class="card">
                             <div class="header">
                                 <h2>
-                                    v2.1.0
-                                    <small>20 Januari 2019</small>
+                                    Today
+                                    <small><?php echo date("l, d F Y"); ?></small>
                                 </h2>
                             </div>
-                            <div class="body">
-                                <p><b>Pembaruhan Sistem Ticket Order 2019 </b>:</p>
-                                <p>- Penambahan Sistem Login & Logout</p>
-                                <p>- Penambahan Sistem Edit Pemesanan</p>
-                                <p>- Penambahan Cetak Pemesanan</p>
-                                <p>- Penambahan Sistem Alert PopUp</p>
-                                <p></p>
+                            <div class="info-box-4">
+                                <div class="icon">
+                                    <i class="material-icons col-cyan">shopping_cart</i>
+                                </div>
+                                <div class="content">
+                                    <div class="text">Order</div>
+                                    <div class="number count-to" data-from="0" data-to="<?php echo get_count_from('pemesanan'); ?>" data-speed="1500" data-fresh-interval="20"></div>
+                                </div>
+                            </div>
+                            <div class="info-box-4">
+                                <div class="icon">
+                                    <i class="material-icons col-blue">account_box</i>
+                                </div>
+                                <div class="content">
+                                    <div class="text">Order</div>
+                                    <div class="number count-to" data-from="0" data-to="<?php echo get_count_from('user'); ?>" data-speed="1500" data-fresh-interval="20"></div>
+                                </div>
                             </div>
                         </div>
                     </div>

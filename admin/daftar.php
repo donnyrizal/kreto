@@ -2,7 +2,7 @@
 session_start();
 include("../koneksi.php");
 if (!isset($_SESSION['admin'])) {
-    echo "<script>window.location='../user/index.php?pesan=dilarang'</script>";
+    echo "<script>window.location='../user/login.php?pesan=dilarang'</script>";
 } else {
 ?>
     <!DOCTYPE html>
@@ -12,7 +12,7 @@ if (!isset($_SESSION['admin'])) {
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=Edge">
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-        <title>PDHFOSTI - Daftar Pemesanan</title>
+        <title>KRETO - Orders View</title>
         <!-- Favicon-->
         <link rel="icon" href="../assets/images/train.svg" type="image/x-icon">
 
@@ -43,6 +43,9 @@ if (!isset($_SESSION['admin'])) {
 
         <!-- CSS manual -->
         <link href="../manual.css" rel="stylesheet">
+
+        <!-- Sweetalert2 -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>
     </head>
 
     <body class="theme-blue">
@@ -59,7 +62,7 @@ if (!isset($_SESSION['admin'])) {
                         </div>
                     </div>
                 </div>
-                <p>Tunggu Sebentar...</p>
+                <p>Wait for a moment.. ...</p>
             </div>
         </div>
         <!-- #END# Page Loader -->
@@ -96,7 +99,7 @@ if (!isset($_SESSION['admin'])) {
                             <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
                             <ul class="dropdown-menu pull-right">
                                 <li role="separator" class="divider"></li>
-                                <li><a href="../logout.php"><i class="material-icons">power_settings_new</i>Keluar</a></li>
+                                <li><a href="../logout.php"><i class="material-icons">power_settings_new</i>Logout</a></li>
                             </ul>
                         </div>
                     </div>
@@ -109,19 +112,19 @@ if (!isset($_SESSION['admin'])) {
                         <li>
                             <a href="./">
                                 <i class="material-icons">home</i>
-                                <span>Beranda</span>
+                                <span>Home</span>
                             </a>
                         </li>
                         <li class="active">
                             <a href="daftar.php">
                                 <i class="material-icons">assignment</i>
-                                <span>Daftar Pemesanan</span>
+                                <span>Orders View</span>
                             </a>
                         </li>
                         <li>
                             <a href="./user.php">
                                 <i class="material-icons">people</i>
-                                <span>Daftar User</span>
+                                <span>User List</span>
                             </a>
                         </li>
 
@@ -130,7 +133,7 @@ if (!isset($_SESSION['admin'])) {
                         <li>
                             <a href="../logout.php">
                                 <i class="material-icons col-red">power_settings_new</i>
-                                <span>Keluar</span>
+                                <span>Logout</span>
                             </a>
                         </li>
 
@@ -140,7 +143,7 @@ if (!isset($_SESSION['admin'])) {
                 <!-- Footer -->
                 <div class="legal">
                     <div class="copyright">
-                        &copy; 2019 <a href="https://fosti.ums.ac.id/">FOSTI</a>
+                        <p>&copy; Donny Rizal &middot; <a href="#">Privacy</a> &middot; <a href="#notice">Terms</a></p>
                     </div>
                 </div>
                 <!-- #Footer -->
@@ -163,7 +166,7 @@ if (!isset($_SESSION['admin'])) {
                         <div class="card">
                             <div class="header bg-blue">
                                 <h2>
-                                    Daftar Ticket Order <small>Halaman admin untuk melihat data Ticket Order Fosti...</small>
+                                    List of Ordered <small>The page that has dedicated to admin only 👌</small>
                                 </h2>
                             </div>
                             <div class="body">
@@ -172,30 +175,36 @@ if (!isset($_SESSION['admin'])) {
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>NIM</th>
-                                                <th>Nama</th>
-                                                <th>Angkatan</th>
-                                                <th>Nick Name</th>
-                                                <th>Ukuran</th>
-                                                <th>Jumlah</th>
+                                                <th>Username</th>
+                                                <th>Name</th>
+                                                <th>Origin</th>
+                                                <th>Destination</th>
+                                                <th>Seat Row</th>
+                                                <th>Date Start</th>
+                                                <th>Date End</th>
+                                                <th>Action</th>
+
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
                                             $i = 0;
-                                            $sql = "SELECT nim, nama, angkatan, nickname, size, quantity FROM pemesanan INNER JOIN user ON nim=username";
+                                            $sql = "SELECT user.username, nama, origin, destination, seat, datestart, dateend FROM pemesanan INNER JOIN user ON pemesanan.username=user.username";
                                             $query = mysqli_query($koneksi, $sql);
 
                                             while ($siswa = mysqli_fetch_array($query)) {
+                                                $id = $siswa['username'];
                                                 echo "<tr>";
-
                                                 echo "<td style='text-align: center !important;'>" . ++$i . "</td>";
-                                                echo "<td>" . $siswa['nim'] . "</td>";
+                                                echo "<td>" . $siswa['username'] . "</td>";
                                                 echo "<td>" . $siswa['nama'] . "</td>";
-                                                echo "<td style='text-align: center !important;'>" . $siswa['angkatan'] . "</td>";
-                                                echo "<td>" . $siswa['nickname'] . "</td>";
-                                                echo "<td style='text-align: center !important;'>" . $siswa['size'] . "</td>";
-                                                echo "<td style='text-align: center !important;'>" . $siswa['quantity'] . "</td>";
+                                                echo "<td>" . $siswa['origin'] . "</td>";
+                                                echo "<td>" . $siswa['destination'] . "</td>";
+                                                echo "<td>" . $siswa['seat'] . "</td>";
+                                                echo "<td>" . $siswa['datestart'] . "</td>";
+                                                echo "<td>" . $siswa['dateend'] . "</td>";
+                                                // echo "<td><a class='btn btn-outline-danger' href='javascript:void(0)' id='unlink' data-id='" . $id . "'>Delete</a><td>";
+                                                echo '<td><a type="button" class="btn btn-outline-danger" href="delete.php?username=' . htmlentities($siswa["username"]) . '">Delete</a></td>';
                                                 echo "</tr>";
                                             }
                                             ?>
@@ -242,10 +251,73 @@ if (!isset($_SESSION['admin'])) {
 
         <!-- Demo Js -->
         <script src="../assets/js/demo.js"></script>
+
+        <!-- Sweetalert2 -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>
+        <!-- <script>
+            $('#unlink').on("click", function() {
+                swal({
+                    title: "Delete your order?",
+                    text: "Are you sure you wanna go ahead?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#d33",
+                    cancelButtonColor: "#3085d6",
+                    confirmButtonText: "Yepp",
+                    cancelButtonText: "Noooooo",
+                    closeOnConfirm: false,
+                    closeOnCancel: false,
+                }).then((result) => {
+                    if (result.value) {
+                        windows.location.href = "delete.php?username=" + $(this).data('id');
+                        Swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted',
+                            'Success'
+                        )
+                    } else if (
+                        result.dismiss === swal.DismissReason.cancel
+                    ) {
+
+                    }
+                })
+            });
+        </script> -->
     </body>
 
     </html>
 <?php
-
+    if (isset($_GET['pesan'])) {
+        if ($_GET['pesan'] == "deletesukses") {
+            echo
+                "<script type='text/javascript'>
+                swal({
+                title: 'Data is deleted!',
+                type: 'success',
+                confirmButtonText: 'OK',
+                confirmButtonColor: '#4caf50',
+                reverseButtons: true,
+                focusConfirm: true,
+                  });
+                  $(document).ready(function(){
+                      $('select:not(.swal2-select)').formSelect();
+                    });
+            </script>";
+        } else if ($_GET['pesan'] == "deletegagal") {
+            echo "<script type='text/javascript'>
+                swal({
+                title: 'Data can't be deleted',
+                type: 'error',
+                confirmButtonText: 'OK',
+                confirmButtonColor: '#4caf50',
+                reverseButtons: true,
+                focusConfirm: true,
+                  });
+                $(document).ready(function(){
+                    $('select:not(.swal2-select)').formSelect();
+                });
+        </script>";
+        }
+    }
 }
 ?>
