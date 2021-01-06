@@ -264,8 +264,8 @@ if (!isset($_SESSION['user'])) {
                                                         <div class="item active">
                                                             <img src="https://www.indonesia.travel/content/dam/indtravelrevamp/en/destinations/bali-nusa-tenggara/bali/bali/Image1.jpg" />
                                                             <div class="carousel-caption">
-                                                                <h3>Feast You Eyes</h3>
-                                                                <p>Of a rich culture in Indonesia</p>
+                                                                <h3>Feast Your Eyes</h3>
+                                                                <p>Of a rich cultures in Indonesia</p>
                                                             </div>
                                                         </div>
                                                         <div class="item">
