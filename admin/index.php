@@ -196,10 +196,10 @@ if (!isset($_SESSION['admin'])) {
                             </div>
                             <div class="info-box-4">
                                 <div class="icon">
-                                    <i class="material-icons col-cyan">shopping_cart</i>
+                                    <i class="material-icons col-indigo">shopping_cart</i>
                                 </div>
                                 <div class="content">
-                                    <div class="text">Order</div>
+                                    <div class="text">Total Orders</div>
                                     <div class="number count-to" data-from="0" data-to="<?php echo get_count_from('pemesanan'); ?>" data-speed="1500" data-fresh-interval="20"></div>
                                 </div>
                             </div>
@@ -208,7 +208,7 @@ if (!isset($_SESSION['admin'])) {
                                     <i class="material-icons col-blue">account_box</i>
                                 </div>
                                 <div class="content">
-                                    <div class="text">Order</div>
+                                    <div class="text">Total Users</div>
                                     <div class="number count-to" data-from="0" data-to="<?php echo get_count_from('user'); ?>" data-speed="1500" data-fresh-interval="20"></div>
                                 </div>
                             </div>

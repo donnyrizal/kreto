@@ -150,7 +150,7 @@ if (!isset($_SESSION['user'])) {
                 <!-- Footer -->
                 <div class="legal">
                     <div class="copyright">
-                        &copy; 2019 <a href="https://KRETO.ums.ac.id/;">KRETO</a>
+                        <p>&copy; Donny Rizal &middot; <a href="#">Privacy</a> &middot; <a href="#notice">Terms</a></p>
                     </div>
                 </div>
                 <!-- #Footer -->

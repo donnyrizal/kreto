@@ -663,7 +663,7 @@ if (!isset($_SESSION['user'])) {
             if ($_GET['pesan'] == "editsukses") {
                 echo "<script type='text/javascript'>
                 swal({
-                title: 'Edit Pemesanan Berhasil!',
+                title: 'Your order has succesfully edited',
                 type: 'success',
                 confirmButtonText: 'OK',
                 confirmButtonColor: '#4caf50',
@@ -674,7 +674,7 @@ if (!isset($_SESSION['user'])) {
             } else if ($_GET['pesan'] == "sukses") {
                 echo "<script type='text/javascript'>
                 swal({
-                title: 'Pemesanan Berhasil!',
+                title: 'Order Success!',
                 type: 'success',
                 confirmButtonText: 'OK',
                 confirmButtonColor: '#4caf50',
@@ -685,7 +685,7 @@ if (!isset($_SESSION['user'])) {
             } else if ($_GET['pesan'] == "editgagal") {
                 echo "<script type='text/javascript'>
                 swal({
-                title: 'Gagal Melakukan Edit Pemesanan!',
+                title: 'Failed to edit, something is wrong!',
                 type: 'error',
                 confirmButtonText: 'OK',
                 confirmButtonColor: '#4caf50',
@@ -696,7 +696,7 @@ if (!isset($_SESSION['user'])) {
             } else if ($_GET['pesan'] == "gagal") {
                 echo "<script type='text/javascript'>
                 swal({
-                title: 'Gagal Melakukan Pemesanan!',
+                title: 'Failed to order!',
                 type: 'error',
                 confirmButtonText: 'OK',
                 confirmButtonColor: '#4caf50',
@@ -707,7 +707,7 @@ if (!isset($_SESSION['user'])) {
             } else if ($_GET['pesan'] == "error") {
                 echo "<script type='text/javascript'>
                 swal({
-                title: 'Silahkan Coba Lagi Nanti!',
+                title: 'Please try again once more.!',
                 type: 'info',
                 confirmButtonText: 'OK',
                 confirmButtonColor: '#4caf50',
@@ -718,7 +718,7 @@ if (!isset($_SESSION['user'])) {
             } else if ($_GET['pesan'] == "beli") {
                 echo "<script type='text/javascript'>
                 swal({
-                title: 'Anda Belum Melakukan Pemesanan, Silahkan lakukan Pemesanan Terlebih Dahulu!',
+                title: 'Make sure you make an order first!',
                 type: 'warning',
                 confirmButtonText: 'OK',
                 confirmButtonColor: '#4caf50',
@@ -729,7 +729,7 @@ if (!isset($_SESSION['user'])) {
             } else if ($_GET['pesan'] == "edit") {
                 echo "<script type='text/javascript'>
                 swal({
-                title: 'Anda Telah Melakukan Pemesanan, Silahkan EDIT PEMESANAN APABILA DATA SALAH!',
+                title: 'You already have ordered! If there's something wrong Edit here',
                 type: 'warning',
                 confirmButtonText: 'OK',
                 confirmButtonColor: '#4caf50',
