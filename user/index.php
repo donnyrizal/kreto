@@ -2,15 +2,18 @@
 session_start();
 function greetingWord()
 {
+    date_default_timezone_set('Asia/Jakarta');
     $hour = date("G");
 
     if ($hour > 0 && $hour < 24) {
-        if ($hour >= 3 && $hour < 12) {
+        if ($hour >= 0 && $hour < 6) {
+            echo "<p>Morning sunshine 🌞 <b> <br> Have a nice holiday 🤗 <b></p>";
+        } else if ($hour >= 6 && $hour < 12) {
             echo "<p>Good Morning. Have a nice holiday 🤗 </p>";
         } else if ($hour >= 12 && $hour < 17) {
-            echo "<p>Good afternoon. Have a nice holiday 🤗 </p>";
+            echo "<p>Good Afternoon. Have a nice holiday 🤗 </p>";
         } else {
-            echo "<p>Good evening. Have a nice holiday 🤗 </p>";
+            echo "<p>Good evening. Have a nice dream tho 💤 </p>";
         }
     }
 }
@@ -173,7 +176,7 @@ if (!isset($_SESSION['user'])) {
                         <div class="card">
                             <div class="header bg-blue">
                                 <h2>
-                                    User <small>Order your ticket here</small>
+                                    <?= $_SESSION['user']['username'] ?> <small>Order your ticket here</small>
                                 </h2>
                             </div>
                             <div class="body">

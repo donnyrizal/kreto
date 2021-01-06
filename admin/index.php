@@ -1,6 +1,7 @@
 <?php
 session_start();
 include("../koneksi.php");
+date_default_timezone_set('Asia/Jakarta');
 function get_count_from($table)
 {
     global $koneksi;
